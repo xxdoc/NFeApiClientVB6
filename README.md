@@ -15,5 +15,12 @@ Dentro do pacote da aplicação você encontrará o seguinte conteúdo:
 
 -Diretório Support: diretório contendo os arquivos dll's utilizados na construção do projeto.
 
+# Observações gerais dos exemplos de códigos
+
+Os exemplos de código a seguir apresentam apenas as partes fundamentais para comunicação com a API. Os trechos de código utilizados para geração da interface da aplicação e as validações de campos não serão listadas.
+
+Todos os códigos presentes neste página podem ser encontrados na aplicação de exemplo disponível para download.
+
+A aplicação utiliza as bibliotecas Active Microsoft Script Control 1.0 e Active Microsoft XML, v6.0 para realizar a comunicação com a API e fazer a manipulação de dados JSON, respectivamente.
 
 Para mais informações acesse: http://confluence.ns.eti.br/pages/viewpage.action?pageId=13862153
