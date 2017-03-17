@@ -1,0 +1,5 @@
+ComunicaoAPI = 150, 0, 1121, 523, C
+Geral = 107, 49, 1078, 422, C
+base64Convert = 100, 100, 1071, 473, C
+frmNFeAPI = 185, 91, 794, 464, , 75, 75, 1046, 448, C
+frmNFeAPIRetorno = 48, 23, 1096, 396, Z, 155, -15, 1126, 548, C
