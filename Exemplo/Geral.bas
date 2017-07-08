@@ -21,16 +21,7 @@ SAI:
     MsgBox ("Problemas ao Ler o Arquivo JSON" & vbNewLine & Err.Description), vbInformation, titleNFeAPI
 End Function
 
-Public Function Salvar_Arquivo(fileName As String, conteudo As String) As Boolean
-    Dim fsT As Object
-    Set fsT = CreateObject("ADODB.Stream")
-    fsT.Type = 2
-    fsT.Charset = "utf-8"
-    fsT.Open
-    fsT.WriteText conteudo
-    fsT.SaveToFile fileName
-    
-End Function
+
 Function lerArquivo(fileName As String) As String
 On Error GoTo SAI
     Open fileName For Input As #1
