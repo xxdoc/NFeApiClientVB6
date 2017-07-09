@@ -80,9 +80,8 @@ Public Function downloadNFeAndSave(token As String, chNFe As String, tpDown As S
         If (Not (Right(caminho, 1) = "\")) Then
             caminho = caminho & "\"
         End If
-        
         If Len(Dir(caminho, vbDirectory) & "") = 0 Then
-            MkDir caminho
+            Call criarPastas(caminho)
         End If
     End If
     Dim caminhoNomeArquivo As String
@@ -184,4 +183,18 @@ Public Function Salvar_Arquivo(fileName As String, conteudo As String) As Boolea
     fsT.WriteText conteudo
     fsT.SaveToFile fileName
     
+End Function
+
+Public Function criarPastas(caminho As String) As Boolean
+    Dim diretorio() As String
+    diretorio = Split(caminho, "\")
+    Dim caminhoAtual As String
+    caminhoAtual = diretorio(0)
+    
+    For i = 1 To UBound(diretorio)
+        If Len(Dir(caminhoAtual, vbDirectory) & "") = 0 Then
+            MkDir caminhoAtual
+        End If
+        caminhoAtual = caminhoAtual & "\" & diretorio(i)
+    Next i
 End Function
