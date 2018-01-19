@@ -36,12 +36,13 @@ Public Function emitirNFe(token As String, conteudo As String, tpConteudo As Str
     emitirNFe = enviaConteudoParaAPI(token, conteudo, url, tpConteudo)
 End Function
 
-Public Function consultaStatusProcessamento(token As String, CNPJ As String, nsNRec As String) As String
+Public Function consultaStatusProcessamento(token As String, CNPJ As String, nsNRec As String, tpAmb As String) As String
     Dim conteudo As String
     conteudo = "{"
     conteudo = conteudo & """X-AUTH-TOKEN"":""" & token & ""","
     conteudo = conteudo & """CNPJ"":""" & CNPJ & ""","
-    conteudo = conteudo & """nsNRec"":""" & nsNRec & """"
+    conteudo = conteudo & """nsNRec"":""" & nsNRec & ""","
+    conteudo = conteudo & """tpAmb"":""" & tpAmb & """"
     conteudo = conteudo & "}"
     
     Dim url As String
@@ -50,12 +51,13 @@ Public Function consultaStatusProcessamento(token As String, CNPJ As String, nsN
     consultaStatusProcessamento = enviaConteudoParaAPI(token, conteudo, url, "json")
 End Function
 
-Public Function downloadNFe(token As String, chNFe As String, tpDown As String) As String
+Public Function downloadNFe(token As String, chNFe As String, tpDown As String, tpAmb As String) As String
     Dim conteudo As String
     conteudo = "{"
     conteudo = conteudo & """X-AUTH-TOKEN"":""" & token & ""","
     conteudo = conteudo & """chNFe"":""" & chNFe & ""","
-    conteudo = conteudo & """tpDown"":""" & tpDown & """"
+    conteudo = conteudo & """tpDown"":""" & tpDown & ""","
+    conteudo = conteudo & """tpAmb"":""" & tpAmb & """"
     conteudo = conteudo & "}"
     
     Dim url As String
@@ -64,9 +66,9 @@ Public Function downloadNFe(token As String, chNFe As String, tpDown As String) 
     downloadNFe = enviaConteudoParaAPI(token, conteudo, url, "json")
 End Function
 
-Public Function downloadNFeAndSave(token As String, chNFe As String, tpDown As String, caminho As String, isShow As Boolean)
+Public Function downloadNFeAndSave(token As String, chNFe As String, tpDown As String, tpAmb As String, caminho As String, isShow As Boolean)
     Dim retornoAPI As String
-    retornoAPI = downloadNFe(token, chNFe, tpDown)
+    retornoAPI = downloadNFe(token, chNFe, tpDown, tpAmb)
     
     downloadNFeAndSave = retornoAPI
     
@@ -160,6 +162,29 @@ Err_Exit:
 err_handler:
     LerDadosJSON = "Error: " & Err.Description
     Resume Err_Exit
+End Function
+
+Public Function LerDadosXML(sXml As String, Key1 As String, Key2 As String) As String
+    On Error Resume Next
+    LerDadosXML = ""
+    
+    Set xml = New DOMDocument
+    xml.async = False
+    
+    If xml.loadXML(sXml) Then
+        'Tentar pegar o strCampoXML
+        Set objNodeList = xml.getElementsByTagName(Key1 & "//" & Key2)
+        Set objNode = objNodeList.nextNode
+        
+        Dim valor As String
+        valor = objNode.Text
+        
+        If Len(Trim(valor)) > 0 Then 'CONSEGUI LER O XML NODE
+            LerDadosXML = valor
+        End If
+        Else
+        MsgBox "Não foi possível ler o conteúdo do XML da NFe especificado para leitura.", vbCritical, "ERRO"
+    End If
 End Function
 
 
